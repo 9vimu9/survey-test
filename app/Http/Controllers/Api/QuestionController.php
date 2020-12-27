@@ -26,7 +26,7 @@ class QuestionController extends Controller
             return response()->json([
                 "status"=>1,
                 "data"=>[
-                    "questions"=>$questions
+                    "surveys"=>$questions
                 ]
             ]);
 
