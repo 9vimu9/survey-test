@@ -29,6 +29,7 @@
 
                         <table>
                             <tr>
+                                <th>Survey Name</th>
                                 <th>Answered By</th>
                                 <th>Question</th>
                                 <th>Answer</th>
@@ -36,6 +37,7 @@
                             </tr>
                             @foreach($questions as $question)
                                 <tr>
+                                    <td>{{$question->survey_name}}</td>
                                     <td>{{$question->user}}</td>
                                     <td>{{$question->question}}</td>
                                     <td>{{$question->answer}}</td>

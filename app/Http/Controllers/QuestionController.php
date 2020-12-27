@@ -20,6 +20,7 @@ class QuestionController extends Controller
 
         try{
             $request->validate([
+                'survey_name' => ['required','max:255'],
                 'question' => ['required','max:255'],
                 'user_id' => ['required','exists:'.User::class.',id'],
             ]);
@@ -49,30 +50,18 @@ class QuestionController extends Controller
         $users = User::all();
         $questions = [];
 
-        foreach ($users as $user){
-
-            $questionCollection = Question::where("user_id",$user->id)
-                ->orderByDesc("id")
-                ->limit(1)
-                ->get();
-
-            if(!count($questionCollection)){
-                continue;
-            }
-
-            $questionObject = $questionCollection[0];
+        $questionCollection = Question::all();
+        foreach ($questionCollection as $questionObject){
             $answer = $questionObject->answer;
-
             $question = [];
             $question["id"] = $questionObject->id;
             $question["question"] = $questionObject->question;
             $question["answer"] = is_null($answer) ? "-" : $answer;
-            $question["user"] = $user->name;
+            $question["user"] = $questionObject->user->name;
             $question["answered_at"] = is_null($answer) ? "-" : $questionObject->updated_at->format('d-m-Y H:i:s');
+            $question["survey_name"] = $questionObject->survey_name;
             $questions[] = (object)$question;
-
         }
-
 
         $data = compact("questions");
         return view('index',$data);

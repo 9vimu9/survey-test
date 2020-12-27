@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Add Question</div>
+                <div class="card-header">New Survey</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -16,6 +16,13 @@
 
                     <form action="{{route("storeQuestion")}}" method="POST">
                         @csrf
+                        <div>
+                            <div class="row">
+                                <div class="col-md-3">Survey Name</div>
+                                <div class="col-md-9"> <input type="text" style="width: 100%;" name="survey_name"></div>
+                            </div>
+                        </div>
+                        <hr>
                         <div>
                             <div class="row">
                                 <div class="col-md-8">Question</div>
@@ -33,9 +40,10 @@
                                     </select>
                                 </div>
                             </div>
+                            <hr>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <input type="submit" class="btn-dark btn" style="float: right;">
+                                    <input type="submit" class="btn-dark btn" style="float: right;" value="Create Survey">
                                 </div>
                             </div>
                         </div>
