@@ -14,23 +14,19 @@ class QuestionController extends Controller
         try{
             $user = auth()->userOrFail();
 
-            $question = Question::select("id","question")
+            $questions = Question::select("id as question_id","question","survey_name")
                 ->where("user_id",$user->id)
                 ->orderByDesc("id")
-                ->limit(1)
                 ->get();
 
-            if(!count($question)){
+            if(!count($questions)){
                 throw new \UnexpectedValueException();
             }
-            $question = $question[0];
-            $question = $question->toArray();
-
 
             return response()->json([
                 "status"=>1,
                 "data"=>[
-                    "question"=>$question
+                    "questions"=>$questions
                 ]
             ]);
 
@@ -46,7 +42,7 @@ class QuestionController extends Controller
             return response()->json([
                 "status"=>1,
                 "data"=>[
-                    "question"=>false
+                    "questions"=>false
                 ]
             ]);
 
@@ -68,7 +64,7 @@ class QuestionController extends Controller
 
             $validator = Validator::make($request->all(), [
                 'answer' => ['required','max:255'],
-                'question_id' => ['required','exists:'.Question::class.',id'],
+                'question_id' => ['r    equired','exists:'.Question::class.',id'],
             ]);
 
             if ($validator->fails()) {

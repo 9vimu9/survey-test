@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Question extends Model
 {
     use HasFactory;
-    protected $fillable = ["question","answer","user_id"];
+    protected $fillable = ["question","answer","user_id","survey_name"];
 
     public function user(){
         return $this->belongsTo(User::class);
