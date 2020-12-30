@@ -25,3 +25,5 @@ Route::post('/store-question', [App\Http\Controllers\QuestionController::class, 
 
 Route::get('/index', [App\Http\Controllers\QuestionController::class, 'index'])->name('index')->middleware('auth');
 
+Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->middleware('auth');
+
